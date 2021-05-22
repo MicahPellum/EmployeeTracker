@@ -4,6 +4,7 @@ require('dotenv').config();
 const cTable = require('console.table');
 
 const { getDepartments, addDepartment } = require('./src/departmentRequests');
+const { isBuffer } = require('util');
 
 //create connection to db
 const connection = mysql.createConnection({
@@ -55,9 +56,48 @@ getNewObjDetails = (objType) => {
          )};
      connection.end();
  }
-    else if(task === "View all Roles') {
+    else if(task === 'View all Roles') {
         console.log('the take is to get roles');
     }
-    else if(task === "View all Employees") {
+    else if(task === 'View all Employees') {
         console.log('the take is to get employees');
+    }
+    else if(task === 'Add Department') {
+        const query = addDepartment();
+        getNewObjDetails('dept')
+        .then(userInput => {
+            connection.query(query,
+                {
+                    dept_name: userInput.deptName
+                },
+                function(err, res){
+                    if(err) throw err;
+                    console.table('A new department has been created. /n Department Name: ${userInput.deptName} /n Department ID: ${res.insertId}');
+                    connection.end();
+                });
+
+        });
+    });
+}
+    else if(task ==='Add Roll') {
+        console.log('the task is to add a role');
+    }
+    else if(task === 'Add Employee') {
+        console.log('the tasks is to add an employee');
+    }
+    else if(task === "Update Employee Roll") {
+        console.log('the task is to update an employees role');
+    }
+};
+
+
+afterConnection = () => {
+    getTask()
+        .then(response => {
+            taskHandler(response.task);
+        })
+        .catch(err => {
+            console.log(err);
+            connection.end;
+        });
     };
