@@ -5,7 +5,7 @@ const cTable = require('console.table');
 
 const { getDepartments, addDepartment } = require('./src/departmentRequests');
 const { getRoles, addRole, getNewRoleDetails } = require('./src/roleRequests');
-const { getEmployees, addEmployee, updateEmployee, getNewEmpDetails, getManagers, getEmpUpdateDetails } = require('./src/employeeDepartments');
+const { getEmployees, addEmployee, updateEmployee, getNewEmpDetails, getManagers, getEmpUpdateDetails } = require('./src/employeeRequests');
 
 async function getTask() {
     let questions = [
