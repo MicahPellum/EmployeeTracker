@@ -22,16 +22,15 @@ async function getTask() {
 async function main () {
 
 
+const connection = mysql.createConnection({
+    host: process.env.host,
+    port: process.env.port,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database,
+  });
+  
 
-//create connection to db
-const connection = await mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: 'empDB'
-});
-console.log('Connected');
 
 //create loop marker
 let exitTracker = false;
@@ -106,3 +105,4 @@ let exitTracker = false;
     }
 }
 };
+main();
